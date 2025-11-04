@@ -1,0 +1,16 @@
+# MCP and FastMCP
+fastmcp>=0.1.0
+mcp>=0.1.0
+
+# HTTP client with retry support
+requests>=2.31.0
+urllib3>=2.0.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Optional: Development dependencies
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+# black>=23.0.0
+# mypy>=1.0.0

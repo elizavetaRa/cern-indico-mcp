@@ -1,0 +1,11 @@
+{
+  "servers": [
+    {
+      "name": "indico",
+      "command": "python",
+      "args": ["indico_mcp.py"],
+      "env": {},
+      "enabled": true
+    }
+  ]
+}

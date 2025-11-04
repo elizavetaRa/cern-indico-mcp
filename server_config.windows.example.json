@@ -1,0 +1,11 @@
+{
+  "servers": [
+    {
+      "name": "indico",
+      "command": ".venv\\Scripts\\python.exe",
+      "args": ["indico_mcp.py"],
+      "env": {},
+      "enabled": true
+    }
+  ]
+}
