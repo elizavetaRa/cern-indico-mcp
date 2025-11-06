@@ -1,6 +1,7 @@
-# Indico MCP Server
+# Indico MCP Server PROTOTYPE
 
 A Model Context Protocol (MCP) server providing access to CERN Indico public events.
+https://github.com/indico/indico
 
 ## Features
 
@@ -132,7 +133,7 @@ ENABLE_CACHE=true
 CACHE_SIZE=128
 ```
 
-**Note:** This server only accesses public events. Authentication is disabled for security purposes.
+**Note: This server only accesses public events. Authentication is disabled for security purposes.**
 
 ### MCP Client Configuration
 
@@ -160,14 +161,6 @@ For Claude Desktop or other MCP clients, use the configuration from `config/serv
 source .venv/bin/activate
 python -m pytest tests/
 ```
-
-### Code Structure
-
-- **src/server.py**: Main MCP server with tool definitions
-- **src/client.py**: Indico API client with retry logic and caching
-- **src/config.py**: Centralized configuration management
-- **src/models.py**: Event data models and normalization
-- **src/utils.py**: Date handling, validation, and utilities
 
 ## Requirements
 
