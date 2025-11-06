@@ -13,10 +13,9 @@ load_dotenv()
 class Config:
     """Centralized configuration management."""
     
-    # API Configuration
+    # API Configuration (PUBLIC ACCESS ONLY)
     INDICO_BASE_URL = os.getenv("INDICO_BASE_URL", "https://indico.cern.ch")
     INDICO_EXPORT = f"{INDICO_BASE_URL}/export"
-    INDICO_TOKEN = os.getenv("INDICO_TOKEN", "").strip()
     
     # Default Values
     DEFAULT_LIMIT = 10
@@ -44,8 +43,8 @@ class Config:
     
     @classmethod
     def is_authenticated(cls) -> bool:
-        """Check if running with valid authentication."""
-        return bool(cls.INDICO_TOKEN and cls.INDICO_TOKEN != 'your_token_here')
+        """Check if running with valid authentication (always False for security)."""
+        return False
     
     @classmethod
     def get_user_agent(cls) -> str:

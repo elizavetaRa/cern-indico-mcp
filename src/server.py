@@ -8,9 +8,11 @@ Usage:
     python server.py
 
 Environment Variables:
-    INDICO_TOKEN - API token from https://indico.cern.ch/user/tokens/
     LOG_LEVEL - Logging level (DEBUG, INFO, WARNING, ERROR)
     CACHE_SIZE - LRU cache size for API responses
+    ENABLE_CACHE - Enable/disable caching (true/false)
+
+Note: This server only accesses PUBLIC events for security purposes.
 """
 
 import logging
@@ -219,7 +221,7 @@ def server_status() -> Dict[str, Any]:
     try:
         status = {
             "version": "2.0.0",
-            "authenticated": Config.is_authenticated(),
+            "public_only": True,
             "base_url": Config.INDICO_BASE_URL,
             "cache_enabled": Config.ENABLE_CACHE,
             "max_limit": Config.MAX_LIMIT,
@@ -244,34 +246,26 @@ def main():
     try:
         # Print startup banner
         print("=" * 60)
-        print(f"🚀 Indico MCP Server v2.0.0")
-        print(f"📡 Base URL: {Config.INDICO_BASE_URL}")
-        
-        if Config.is_authenticated():
-            print("🔐 Authentication: ENABLED")
-        else:
-            print("🔓 Authentication: DISABLED (public events only)")
-            print("💡 To enable authentication:")
-            print("   1. Get token from: https://indico.cern.ch/user/tokens/")
-            print("   2. Add to .env file: INDICO_TOKEN=your_token_here")
-        
-        print(f"📊 Cache: {'ENABLED' if Config.ENABLE_CACHE else 'DISABLED'}")
-        print(f"📈 Log Level: {Config.LOG_LEVEL}")
+        print("Indico MCP Server v2.0.0")
+        print(f"Base URL: {Config.INDICO_BASE_URL}")
+        print("Access: PUBLIC EVENTS ONLY")
+        print(f"Cache: {'ENABLED' if Config.ENABLE_CACHE else 'DISABLED'}")
+        print(f"Log Level: {Config.LOG_LEVEL}")
         print("=" * 60)
-        
-        logger.info("Starting Indico MCP Server v2.0.0")
-        logger.info(f"Configuration: Auth={Config.is_authenticated()}, Cache={Config.ENABLE_CACHE}")
+
+        logger.info("Starting Indico MCP Server v2.0.0 (PUBLIC ACCESS ONLY)")
+        logger.info(f"Configuration: Cache={Config.ENABLE_CACHE}")
         
         # Start the server
         app.run()
         
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
-        print("\n👋 Server stopped gracefully")
+        print("\nServer stopped gracefully")
         
     except Exception as e:
         logger.critical(f"Server failed to start: {e}")
-        print(f"\n❌ Server failed to start: {e}")
+        print(f"\nERROR: Server failed to start: {e}")
         raise
 
 

@@ -3,7 +3,7 @@
     {
       "name": "indico",
       "command": "python",
-      "args": ["indico_mcp.py"],
+      "args": ["main.py"],
       "env": {},
       "enabled": true
     }

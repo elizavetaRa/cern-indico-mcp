@@ -15,12 +15,12 @@ pip install fastmcp requests python-dotenv
 
 # Copy example files
 [ ! -f .env ] && cp .env.example .env
-[ ! -f server_config.json ] && cp server_config.example.json server_config.json
+[ ! -f server_config.json ] && cp config/server_config.example.json server_config.json
 
 echo ""
 echo "Setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Edit .env and add your INDICO_TOKEN"
-echo "2. Run the server: python indico_mcp.py"
-echo "3. Or test with inspector: npx @modelcontextprotocol/inspector .venv/bin/python indico_mcp.py"
+echo "2. Run the server: python main.py"
+echo "3. Or test with inspector: npx @modelcontextprotocol/inspector .venv/bin/python main.py"

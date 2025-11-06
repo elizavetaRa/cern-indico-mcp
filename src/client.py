@@ -37,15 +37,9 @@ class IndicoClient:
         return session
     
     def _setup_headers(self) -> Dict[str, str]:
-        """Setup authorization headers if token is available."""
+        """Setup request headers for public-only access."""
         headers = {"User-Agent": Config.get_user_agent()}
-        
-        if Config.is_authenticated():
-            headers["Authorization"] = f"Bearer {Config.INDICO_TOKEN}"
-            logger.info("Client initialized with authentication token")
-        else:
-            logger.info("Client initialized without authentication - public events only")
-            
+        logger.info("Client initialized for public events only (authentication disabled)")
         return headers
     
     def _make_request(self, url: str, params: Dict[str, Any]) -> Dict[str, Any]:
@@ -70,15 +64,12 @@ class IndicoClient:
             raise ValueError("Connection failed. Check your network.")
             
         except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 401:
-                logger.error("Authentication failed")
-                raise ValueError("Authentication failed. Check your API token.")
-            elif e.response.status_code == 403:
-                logger.error("Access forbidden")
-                raise ValueError("Access forbidden. You may not have permission.")
-            elif e.response.status_code == 404:
+            if e.response.status_code == 404:
                 logger.error("Resource not found")
                 raise ValueError("Resource not found.")
+            elif e.response.status_code == 403:
+                logger.error("Access forbidden - resource may not be public")
+                raise ValueError("Access forbidden. This resource may not be public.")
             else:
                 logger.error(f"HTTP error {e.response.status_code}: {e}")
                 raise ValueError(f"Server error: {e.response.status_code}")

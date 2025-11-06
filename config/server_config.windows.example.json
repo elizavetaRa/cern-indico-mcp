@@ -3,7 +3,7 @@
     {
       "name": "indico",
       "command": ".venv\\Scripts\\python.exe",
-      "args": ["indico_mcp.py"],
+      "args": ["main.py"],
       "env": {},
       "enabled": true
     }
